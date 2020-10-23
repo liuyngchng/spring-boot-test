@@ -1,0 +1,58 @@
+/*select标签*/
+.backstage-select-label {
+    margin-left: 10px;
+    width: 200px;
+    text-align: left !important;
+}
+
+/*select框体*/
+.backstage-select {
+    width: 240px;
+}
+
+/*select框体*/
+.backstage-date {
+    background-image: url("../js/plugins/layer/laydate/skins/default/icon.png");
+    width: 100%;
+    float: left;
+    margin-right: 40px;
+}
+
+/*分割线*/
+.backstage-hr-line-dashed {
+    border-top: 0px dashed #e7eaec;
+    margin: 5px 0
+}
+
+/*选择条件div*/
+.backstage-form-group {
+    margin: 0 0;
+}
+.backstage-col-sm-10 {
+    height: 30px;
+    width: 600px;
+}
+
+/*input*/
+.backstage-input {
+    width: 240px;
+}
+
+/*button*/
+.backstage-button {
+    margin-right: 40px;
+}
+
+/*table最外层的div*/
+.backstage-table-div {
+    width: 100%;
+    overflow-x: visible!important;
+}
+
+.backstage-right {
+    background-color: #f0f3f4!important;
+}
+
+.h120 {
+    height: 120px;
+}

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,32 @@ public class SampleController {
         modelAndView.addObject("dae", new Date());
         return modelAndView;
     }
+
+    @RequestMapping("v1")
+    public ModelAndView v1() {
+        LOGGER.info("hello, myview");
+        ModelAndView modelAndView =  new ModelAndView("v1");
+        modelAndView.addObject("name", "whoAmI");
+        modelAndView.addObject("dae", new Date());
+        return modelAndView;
+    }
+
+    @RequestMapping("page")
+    public ModelAndView page() {
+        LOGGER.info("hello, mypage");
+        ModelAndView modelAndView =  new ModelAndView("page");
+        modelAndView.addObject("name", "whoAmI");
+        modelAndView.addObject("dae", new Date());
+        return modelAndView;
+    }
+
+    @RequestMapping("data")
+    @ResponseBody
+    public Pagination getImportData(final SearchDto searchDto) {
+
+        return new Pagination(1,2,3L);
+    }
+
 
     @RequestMapping("view")
     public ModelAndView view() {

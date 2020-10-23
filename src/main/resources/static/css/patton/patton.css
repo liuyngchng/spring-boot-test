@@ -1,0 +1,19 @@
+.bid-channel {
+    height: auto;
+}
+
+.table thead tr th.product {
+    padding: 0 20px;
+}
+
+.table thead tr th.bidChannel {
+    padding: 0 30px;
+}
+
+.table thead tr th.username{
+    padding: 0 10px;
+}
+
+span.fixed-value {
+    border: none;
+}
