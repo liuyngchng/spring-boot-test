@@ -1,3 +1,0 @@
-<div>
-    $!{Author}, Bye!
-</div>

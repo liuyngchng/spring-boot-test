@@ -1,10 +1,10 @@
-<!-- 放款列表  -->
+
 <div><label class="col-sm-2 control-label backstage-select-label">那什么信息</label></div>
 <div class="ibox float-e-margins backstage-right-div">
     <input id="contextParam" type="hidden" value="/"/>
     <div class="ibox-content">
         <form method="get" class="form-horizontal">
-            <!-- 申请时间 -->
+
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">时间:</label>
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
-            <!-- 订单状态 -->
+
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">类型:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
@@ -28,6 +28,7 @@
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
+
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">是否xx:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
@@ -39,6 +40,7 @@
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
+
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">UID:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
@@ -54,6 +56,7 @@
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
+
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">xx编号:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
@@ -62,7 +65,8 @@
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
-            <!-- 操作按钮 -->
+
+
             <div class="form-group backstage-form-group">
                 <div class="col-sm-2 backstage-select-label">
                     <button type="button" class="btn btn-w-m btn-danger backstage-button" onclick="search()">查&nbsp;&nbsp;&nbsp;询</button>

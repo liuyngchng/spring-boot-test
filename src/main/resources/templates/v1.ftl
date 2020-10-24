@@ -32,7 +32,7 @@
     <link href="/static/css/patton/patton.css" rel="stylesheet">
     <link href="/static/css/emergency.css" rel="stylesheet">
     <link href="/static/css/jquery-ui.css" rel="stylesheet">
-    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+    <link href="/static/css/canvas.css" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg pace-done" style="overflow:hidden">
@@ -53,17 +53,17 @@
                             </a>
                         </li>
                         <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                            <span class="ng-scope"><a href="/xiaoer/logout">登出</a></span>
+                            <span class="ng-scope"><a href="/logout">登出</a></span>
                         </li>
                         <li id="quota_apply" class="">
                             <a href="javascript:void(0)">
                                 <i class="fa fa fa-bar-chart-o"></i>
-                                <span class="nav-label">这是个测试</span>
+                                <span class="nav-label">任务</span>
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a class="J_menuItem" href="javascript:getPage('/private/credit/amount')">测试1</a>
+                                    <a class="J_menuItem" href="javascript:getPage('/page')">任务查询</a>
                                     <a class="J_menuItem" href="javascript:getPage('/private/idCard/ocr')">测试2</a>
                                     <a class="J_menuItem" href="javascript:getPage('/private/face/living')">测试3</a>
                                     <a class="J_menuItem" href="javascript:getPage('/private/auth/item')">测试4</a>
@@ -75,7 +75,7 @@
                         <li id="import" class="">
                             <a href="javascript:void(0)">
                                 <i class="fa fa fa-bar-chart-o"></i>
-                                <span class="nav-label">信息2</span>
+                                <span class="nav-label">配置</span>
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="nav nav-second-level collapse">
@@ -92,12 +92,12 @@
                         <li id="config" class="">
                             <a href="javascript:void(0)">
                                 <i class="fa fa fa-bar-chart-o"></i>
-                                <span class="nav-label">配置信息</span>
+                                <span class="nav-label">监控</span>
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a class="J_menuItem" href="javascript:getPage('/config/index')">修改配置</a>
+                                    <a class="J_menuItem" href="javascript:getPage('/curvedata')">监控数据</a>
                                 </li>
                             </ul>
                         <li class="line dk"></li>

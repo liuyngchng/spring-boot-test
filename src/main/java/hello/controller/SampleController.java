@@ -67,6 +67,15 @@ public class SampleController {
         return modelAndView;
     }
 
+    @RequestMapping("curvedata")
+    public ModelAndView curveData() {
+        LOGGER.info("hello, curveData");
+        ModelAndView modelAndView =  new ModelAndView("curvedata");
+        modelAndView.addObject("name", "whoAmI");
+        modelAndView.addObject("dae", new Date());
+        return modelAndView;
+    }
+
     @RequestMapping("data")
     @ResponseBody
     public Pagination getImportData(final SearchDto searchDto) {
@@ -124,16 +133,16 @@ public class SampleController {
         }
         final String name = request.getParameter("name");
         final String password = request.getParameter("password");
-        if (User.list.get(name) == null || User.list.get(name) != null && !User.list.get(name).equals(password)) {
-            ModelAndView modelAndView = new ModelAndView("login_index");
-            if (request.getMethod().toLowerCase().equals("post")) {
-                modelAndView.addObject("data", "用户名或密码错误，请重新登录");
-                LOGGER.info("user name or password error.");
-            } else {
-                LOGGER.info("login, http get");
-            }
-            return modelAndView;
-        }
+//        if (User.list.get(name) == null || User.list.get(name) != null && !User.list.get(name).equals(password)) {
+//            ModelAndView modelAndView = new ModelAndView("login_index");
+//            if (request.getMethod().toLowerCase().equals("post")) {
+//                modelAndView.addObject("data", "用户名或密码错误，请重新登录");
+//                LOGGER.info("user name or password error.");
+//            } else {
+//                LOGGER.info("login, http get");
+//            }
+//            return modelAndView;
+//        }
         LOGGER.info("user login {}", name);
         request.getSession().setAttribute("user.name", name);
         ModelAndView modelAndView =  new ModelAndView("index");
