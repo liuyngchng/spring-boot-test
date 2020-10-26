@@ -63,8 +63,8 @@
                             </a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a class="J_menuItem" href="javascript:getPage('/page')">任务查询</a>
-                                    <a class="J_menuItem" href="javascript:getPage('/private/idCard/ocr')">测试2</a>
+                                    <a class="J_menuItem" href="javascript:getPage('/taskinfo')">任务查询</a>
+                                    <a class="J_menuItem" href="javascript:getPage('/taskdetail')">任务详请</a>
                                     <a class="J_menuItem" href="javascript:getPage('/private/face/living')">测试3</a>
                                     <a class="J_menuItem" href="javascript:getPage('/private/auth/item')">测试4</a>
                                     <a class="J_menuItem" href="javascript:getPage('/private/user/info')">测试5</a>

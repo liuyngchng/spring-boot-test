@@ -58,10 +58,19 @@ public class SampleController {
         return modelAndView;
     }
 
-    @RequestMapping("page")
-    public ModelAndView page() {
-        LOGGER.info("hello, mypage");
-        ModelAndView modelAndView =  new ModelAndView("page");
+    @RequestMapping("taskinfo")
+    public ModelAndView taskInfo() {
+        LOGGER.info("hello, taskInfo");
+        ModelAndView modelAndView =  new ModelAndView("taskInfo");
+        modelAndView.addObject("name", "whoAmI");
+        modelAndView.addObject("dae", new Date());
+        return modelAndView;
+    }
+
+    @RequestMapping("taskdetail")
+    public ModelAndView taskDetail() {
+        LOGGER.info("hello, taskDetail");
+        ModelAndView modelAndView =  new ModelAndView("taskDetail");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
         return modelAndView;

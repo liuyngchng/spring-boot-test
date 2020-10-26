@@ -1,71 +1,68 @@
 
-<div><label class="col-sm-2 control-label backstage-select-label">那什么信息</label></div>
+<div><label class="col-sm-2 control-label backstage-select-label">任务信息</label></div>
 <div class="ibox float-e-margins backstage-right-div">
     <input id="contextParam" type="hidden" value="/"/>
     <div class="ibox-content">
         <form method="get" class="form-horizontal">
+
+            <div class="form-group backstage-form-group">
+                <label class="col-sm-2 control-label backstage-select-label">文件名称:</label>
+                <div class="col-sm-10 backstage-col-sm-10">
+                    <input placeholder="请输入文件名称" class="form-control backstage-input" type="text" id="filename" name="filename">
+                </div>
+            </div>
 
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">时间:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
                     <input id="startTime" class="laydate-icon form-control layer-date backstage-date"
-                           readonly="readonly" placeholder="开始日期" name="startTime">
+                           readonly="readonly" placeholder="开始时间" name="startTime">
                     <input id="endTime" class="laydate-icon form-control layer-date backstage-date" readonly="readonly"
-                           placeholder="结束日期" name="endTime">
+                           placeholder="结束时间" name="endTime">
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
 
             <div class="form-group backstage-form-group">
-                <label class="col-sm-2 control-label backstage-select-label">类型:</label>
+                <label class="col-sm-2 control-label backstage-select-label">任务状态:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
                     <select class="form-control m-b backstage-select" name="productCode" id="productCode">
                         <option value="">-- 全部 --</option>
-                        <option value="10000009">类型1</option>
-                        <option value="11000009">类型2</option>
+                        <option value="1">初始化</option>
+                        <option value="12">已结束</option>
                     </select>
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
 
             <div class="form-group backstage-form-group">
-                <label class="col-sm-2 control-label backstage-select-label">是否xx:</label>
+                <label class="col-sm-2 control-label backstage-select-label">任务类型:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
                     <select class="form-control m-b backstage-select" name="ESBCode" id="ESBCode">
                         <option value="">-- 全部 --</option>
-                        <option value="true">是</option>
-                        <option value="false">否</option>
+                        <option value="true">接收</option>
+                        <option value="false">发送</option>
                     </select>
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
 
             <div class="form-group backstage-form-group">
-                <label class="col-sm-2 control-label backstage-select-label">UID:</label>
+                <label class="col-sm-2 control-label backstage-select-label">发送端IP:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
-                    <input placeholder="请输入UID" class="form-control backstage-input" type="text" id="uid" name="uid">
+                    <input placeholder="请输入发送端IP" class="form-control backstage-input" type="text" id="uid" name="uid">
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
             <div class="form-group backstage-form-group">
-                <label class="col-sm-2 control-label backstage-select-label">xx号:</label>
+                <label class="col-sm-2 control-label backstage-select-label">接收端传输服务IP:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
-                    <input placeholder="请输入xx号" class="form-control backstage-input" type="text" id="mobile"
+                    <input placeholder="请输入接收端传输服务IP" class="form-control backstage-input" type="text" id="mobile"
                            name="mobile">
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
-
-            <div class="form-group backstage-form-group">
-                <label class="col-sm-2 control-label backstage-select-label">xx编号:</label>
-                <div class="col-sm-10 backstage-col-sm-10">
-                    <input placeholder="输入xx编号，可查完整JSON" class="form-control backstage-input" type="text" id="loanId"
-                           name="loanId">
-                </div>
-            </div>
-            <div class="hr-line-dashed backstage-hr-line-dashed"></div>
-
 
             <div class="form-group backstage-form-group">
                 <div class="col-sm-2 backstage-select-label">
@@ -130,18 +127,18 @@
         queryParams: queryParams,
         columns: [
             {
-                field: 'number',
+                field: 'no',
                 title: '序号',
                 width: "50px",
                 formatter: function (value, row, index) {
                     return index + 1;
                 }
             }, {
-                field: 'loanApplyInfo.uid',
-                title: 'UID'
+                field: 'fileName',
+                title: '文件名称'
             }, {
-                field: 'loanApplyInfo.productCode',
-                title: '类型',
+                field: 'startTime',
+                title: '开始时间',
                 formatter: function (value, row, index) {
                     if (undefined == value || '' == value) {
                         return;
@@ -152,8 +149,8 @@
                     }
                 }
             }, {
-                field: 'loanApplyInfo.createTime',
-                title: '时间',
+                field: 'endTime',
+                title: '结束时间',
                 formatter: function (value, row, index) {
                     if (undefined == value || '' == value) {
                         return;
@@ -162,11 +159,11 @@
                     }
                 }
             }, {
-                field: 'loanApplyInfo.applyNo',
-                title: 'applyNo'
+                field: 'dataSize',
+                title: '数据量'
             }, {
-                field: 'loanApplyInfo.applyAmount',
-                title: '数量',
+                field: 'percent',
+                title: '任务完成率（%）',
                 formatter: function (value, row, index) {
                     if (undefined == value) {
                         return;
@@ -175,11 +172,11 @@
                     }
                 }
             }, {
-                field: 'loanApplyInfo.opCfcaStatus',
-                title: 'AAAA'
+                field: 'status',
+                title: '任务状态'
             }, {
-                field: 'loanApplyInfo.esbMsgPushFlag',
-                title: '是否',
+                field: 'type',
+                title: '任务类型',
                 formatter: function (value, row, index) {
                     if (undefined == value) {
                         return;
@@ -190,14 +187,14 @@
                     }
                 }
             }, {
-                field: 'auditInfo.auditStatus',
-                title: '状态',
+                field: 'senderIP',
+                title: '发送端IP',
                 formatter: function (value, row, index) {
                     return getAuditStatus(value);
                 }
             }, {
-                field: 'auditInfo.auditTime',
-                title: '时间',
+                field: 'receiverIP',
+                title: '接收端传输服务IP',
                 formatter: function (value, row, index) {
                     if (undefined == value || '' == value) {
                         return;
@@ -206,12 +203,10 @@
                     }
                 }
             }, {
-                field: 'json',
-                title: 'JSON',
+                field: 'op',
+                title: '操作',
                 formatter: function (value, row, index) {
-                    return "<div>" +
-                        "<a class='showJson' data-id='" + JSON.stringify(removeEmpty(row)) + "' href='javascript:void(0);' onclick='showJson(this)'>查看</a><br/>" +
-                        "</div>";
+                    return "<button type=\"button\" class=\"btn btn-w-m btn-danger backstage-button\" onclick=\"stop()\">暂停</button>";
                 }
             }]
     })
