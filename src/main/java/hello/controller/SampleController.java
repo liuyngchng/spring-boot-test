@@ -6,12 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -55,6 +58,48 @@ public class SampleController {
         ModelAndView modelAndView =  new ModelAndView("v1");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
+        String sql = " create table if not exists file_info(" +
+        "id integer primary key," +
+        "app_id integer," +
+        "file_id integer," +
+        "name varchar(128)," +
+        "size integer," +
+        "path varchar(128)," +
+        "slice_size integer," +
+        "slice_total integer," +
+        "slice_snd integer," +
+        "md5 char(32)," +
+        "create_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
+        "update_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
+        "del integer default 0" +
+        ");";
+        LOGGER.debug(sql);
+        jdbcTemplate.execute(sql);
+        String sql1 = "create table if not exists task_info(" +
+        "id integer primary key," +
+        "app_id integer," +
+        "data_size integer," +
+        "uid varchar(128)," +
+        "target varchar(128)," +
+        "zone integer," +
+        "create_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
+        "update_time timestamp," +
+        "interrupt_time timestamp," +
+        "restart_time timestamp," +
+        "cancel_time timestamp," +
+        "file_id varchar(128)," +
+        "priority integer," +
+        "progress integer," +
+        "op_uid varchar(128)," +
+        "op_type integer," +
+        "status integer," +
+        "del integer default 0" +
+        ");";
+        LOGGER.debug(sql1);
+        jdbcTemplate.execute(sql1);
+        String sql2 = "insert into task_info (file_id, status, progress) values ('abc.pdf', 3, 30)";
+        LOGGER.debug(sql2);
+        jdbcTemplate.execute(sql2);
         return modelAndView;
     }
 
@@ -87,9 +132,25 @@ public class SampleController {
 
     @RequestMapping("data")
     @ResponseBody
-    public Pagination getImportData(final SearchDto searchDto) {
+    public Pagination getImportData(final TaskSearchDto searchDto) {
+        String sql = "select * from task_info where file_id = 'abc.pdf' limit 0, 25";
 
-        return new Pagination(1,2,3L);
+        List<Map<String,Object>> result = this.jdbcTemplate.query(sql, new RowMapper<Map<String,Object>>() {
+            @Override
+            public Map mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Map row = new HashMap();
+                row.put("id", rs.getInt("id"));
+                row.put("create_time", rs.getString("create_time"));
+                row.put("file_id", rs.getString("file_id"));
+                row.put("status", rs.getString("status"));
+                row.put("progress", rs.getString("progress"));
+                return row;
+            }
+
+        });
+        Pagination pagination = new Pagination(searchDto.getPageNo(),25,23L);
+        pagination.setRows(result);
+        return pagination;
     }
 
 
@@ -206,7 +267,7 @@ public class SampleController {
     }
 
     @RequestMapping("score")
-    public ModelAndView score(HttpServletRequest request, SearchDto dto) {
+    public ModelAndView score(HttpServletRequest request, TaskSearchDto dto) {
         LOGGER.info("score");
         final String name = String.valueOf(request.getSession().getAttribute("user.name"));
         ModelAndView modelAndView;
@@ -256,20 +317,9 @@ public class SampleController {
         });
     }
 
-    private String buildSql(SearchDto dto) {
+    private String buildSql(TaskSearchDto dto) {
         StringBuilder sb = new StringBuilder("select * from test.test where true ");
-        if (!Strings.isNullOrEmpty(dto.getCity())) {
-            sb.append("and city = '" + dto.getCity() + "'");
-        }
-        if (!Strings.isNullOrEmpty(dto.getItem())) {
-            sb.append("and item = '" + dto.getItem() + "'");
-        }
-        if (!Strings.isNullOrEmpty(dto.getId1())) {
-            sb.append("and id1 = '" + dto.getId1() + "'");
-        }
-        if (!Strings.isNullOrEmpty(dto.getId2())) {
-            sb.append("and id2 = '" + dto.getId2() + "'");
-        }
+
         return sb.toString();
     }
 

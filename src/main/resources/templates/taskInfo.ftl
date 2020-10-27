@@ -66,7 +66,7 @@
 
             <div class="form-group backstage-form-group">
                 <div class="col-sm-2 backstage-select-label">
-                    <button type="button" class="btn btn-w-m btn-danger backstage-button" onclick="search()">查&nbsp;&nbsp;&nbsp;询</button>
+                    <button type="button" class="btn btn-danger backstage-button" onclick="search()">查&nbsp;&nbsp;&nbsp;询</button>
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
@@ -134,20 +134,11 @@
                     return index + 1;
                 }
             }, {
-                field: 'fileName',
+                field: 'file_id',
                 title: '文件名称'
             }, {
-                field: 'startTime',
-                title: '开始时间',
-                formatter: function (value, row, index) {
-                    if (undefined == value || '' == value) {
-                        return;
-                    } else if (value == '10000009') {
-                        return 'a';
-                    } else if (value == '11000009') {
-                        return 'b';
-                    }
-                }
+                field: 'create_time',
+                title: '开始时间'
             }, {
                 field: 'endTime',
                 title: '结束时间',
@@ -162,15 +153,8 @@
                 field: 'dataSize',
                 title: '数据量'
             }, {
-                field: 'percent',
-                title: '任务完成率（%）',
-                formatter: function (value, row, index) {
-                    if (undefined == value) {
-                        return;
-                    } else {
-                        return (value / 100.0).toFixed(2);
-                    }
-                }
+                field: 'progress',
+                title: '任务完成率（%）'
             }, {
                 field: 'status',
                 title: '任务状态'
@@ -206,7 +190,14 @@
                 field: 'op',
                 title: '操作',
                 formatter: function (value, row, index) {
-                    return "<button type=\"button\" class=\"btn btn-w-m btn-danger backstage-button\" onclick=\"stop()\">暂停</button>";
+                    return "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">暂停</button>"+
+                        "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">取消</button>"+
+                        "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">重试</button><br/>"+
+                        "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">删除</button>"+
+                        "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">任务详情</button>"+
+                        "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">文件信息</button>"
+
+                        ;
                 }
             }]
     })
