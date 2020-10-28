@@ -8,7 +8,7 @@
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">文件名称:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
-                    <input placeholder="请输入文件名称" class="form-control backstage-input" type="text" id="filename" name="filename">
+                    <input placeholder="请输入文件名称" class="form-control backstage-input" type="text" id="task_name" name="task_name">
                 </div>
             </div>
 
@@ -17,9 +17,9 @@
                 <label class="col-sm-2 control-label backstage-select-label">时间:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
                     <input id="startTime" class="laydate-icon form-control layer-date backstage-date"
-                           readonly="readonly" placeholder="开始时间" name="startTime">
+                           readonly="readonly" placeholder="开始时间" name="create_time">
                     <input id="endTime" class="laydate-icon form-control layer-date backstage-date" readonly="readonly"
-                           placeholder="结束时间" name="endTime">
+                           placeholder="结束时间" name="finish_time">
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
@@ -27,7 +27,7 @@
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">任务状态:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
-                    <select class="form-control m-b backstage-select" name="productCode" id="productCode">
+                    <select class="form-control m-b backstage-select" name="status" id="status">
                         <option value="">-- 全部 --</option>
                         <option value="1">初始化</option>
                         <option value="12">已结束</option>
@@ -39,7 +39,7 @@
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">任务类型:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
-                    <select class="form-control m-b backstage-select" name="ESBCode" id="ESBCode">
+                    <select class="form-control m-b backstage-select" name="task_type" id="task_type">
                         <option value="">-- 全部 --</option>
                         <option value="true">接收</option>
                         <option value="false">发送</option>
@@ -51,14 +51,14 @@
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">发送端IP:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
-                    <input placeholder="请输入发送端IP" class="form-control backstage-input" type="text" id="uid" name="uid">
+                    <input placeholder="请输入发送端IP" class="form-control backstage-input" type="text" id="origin_ip" name="origin_ip">
                 </div>
             </div>
             <div class="hr-line-dashed backstage-hr-line-dashed"></div>
             <div class="form-group backstage-form-group">
                 <label class="col-sm-2 control-label backstage-select-label">接收端传输服务IP:</label>
                 <div class="col-sm-10 backstage-col-sm-10">
-                    <input placeholder="请输入接收端传输服务IP" class="form-control backstage-input" type="text" id="mobile"
+                    <input placeholder="请输入接收端传输服务IP" class="form-control backstage-input" type="target_ip" id="target_ip"
                            name="mobile">
                 </div>
             </div>
@@ -127,65 +127,36 @@
         queryParams: queryParams,
         columns: [
             {
-                field: 'no',
+                field: 'id',
                 title: '序号',
-                width: "50px",
-                formatter: function (value, row, index) {
-                    return index + 1;
-                }
+                width: "50px"
             }, {
-                field: 'file_id',
+                field: 'task_name',
                 title: '文件名称'
             }, {
                 field: 'create_time',
                 title: '开始时间'
             }, {
-                field: 'endTime',
-                title: '结束时间',
-                formatter: function (value, row, index) {
-                    if (undefined == value || '' == value) {
-                        return;
-                    } else {
-                        return tableDateFormatter(value)
-                    }
-                }
+                field: 'finish_time',
+                title: '结束时间'
             }, {
-                field: 'dataSize',
-                title: '数据量'
+                field: 'data_size',
+                title: '数据量(MB)'
             }, {
-                field: 'progress',
+                field: 'complete_per',
                 title: '任务完成率（%）'
             }, {
                 field: 'status',
                 title: '任务状态'
             }, {
-                field: 'type',
-                title: '任务类型',
-                formatter: function (value, row, index) {
-                    if (undefined == value) {
-                        return;
-                    } else if (value) {
-                        return '是';
-                    } else {
-                        return '否';
-                    }
-                }
+                field: 'task_type',
+                title: '任务类型'
             }, {
-                field: 'senderIP',
-                title: '发送端IP',
-                formatter: function (value, row, index) {
-                    return getAuditStatus(value);
-                }
+                field: 'origin_ip',
+                title: '发送端IP'
             }, {
-                field: 'receiverIP',
-                title: '接收端传输服务IP',
-                formatter: function (value, row, index) {
-                    if (undefined == value || '' == value) {
-                        return;
-                    } else {
-                        return tableDateFormatter(value)
-                    }
-                }
+                field: 'target_ip',
+                title: '接收端传输服务IP'
             }, {
                 field: 'op',
                 title: '操作',

@@ -59,45 +59,60 @@ public class SampleController {
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
         String sql = " create table if not exists file_info(" +
-        "id integer primary key," +
-        "app_id integer," +
-        "file_id integer," +
-        "name varchar(128)," +
-        "size integer," +
-        "path varchar(128)," +
-        "slice_size integer," +
-        "slice_total integer," +
-        "slice_snd integer," +
-        "md5 char(32)," +
-        "create_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
-        "update_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
-        "del integer default 0" +
-        ");";
+            "id integer primary key," +
+            "app_id integer," +
+            "file_id integer," +
+            "name varchar(128)," +
+            "size integer," +
+            "path varchar(128)," +
+            "slice_size integer," +
+            "slice_total integer," +
+            "slice_snd integer," +
+            "md5 char(32)," +
+            "create_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
+            "update_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
+            "del integer default 0" +
+            ");";
         LOGGER.debug(sql);
         jdbcTemplate.execute(sql);
         String sql1 = "create table if not exists task_info(" +
-        "id integer primary key," +
-        "app_id integer," +
-        "data_size integer," +
-        "uid varchar(128)," +
-        "target varchar(128)," +
-        "zone integer," +
-        "create_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
-        "update_time timestamp," +
-        "interrupt_time timestamp," +
-        "restart_time timestamp," +
-        "cancel_time timestamp," +
-        "file_id varchar(128)," +
-        "priority integer," +
-        "progress integer," +
-        "op_uid varchar(128)," +
-        "op_type integer," +
-        "status integer," +
-        "del integer default 0" +
-        ");";
+            "id integer primary key," +
+            "task_name varchar(128)," +
+            "app_id integer," +
+            "data_size integer," +
+            "uid varchar(128)," +
+            "origin_ip char(16)," +
+            "target_ip varchar(128)," +
+            "used_time integer," +
+            "complete_per char(5)," +
+            "create_time timestamp not null default(strftime('%Y-%m-%d %H:%M:%f', 'now' ,'localtime'))," +
+            "finish_time timestamp," +
+            "push_time timestamp," +
+            "update_time timestamp," +
+            "interrupt_time integer," +
+            "retry_count integer," +
+            "retry_time integer," +
+            "retry_ip char(16)," +
+            "slice_sended integer," +
+            "slice_total integer," +
+            "restart_time timestamp," +
+            "cancel_time timestamp," +
+            "file_id varchar(128)," +
+            "priority integer," +
+            "progress integer," +
+            "op_uid varchar(128)," +
+            "op_type integer," +
+            "task_type integer," +
+            "status integer," +
+            "del integer default 0" +
+            ");";
         LOGGER.debug(sql1);
         jdbcTemplate.execute(sql1);
-        String sql2 = "insert into task_info (file_id, status, progress) values ('abc.pdf', 3, 30)";
+        String sql2 = "insert into task_info (task_name, status, task_type,origin_ip,"+
+            "target_ip,data_size,complete_per,used_time,interrupt_time,retry_count,"+
+            "retry_time,retry_ip,finish_time,push_time,slice_sended,slice_total)"+
+            " values ('abc.pdf', 3, 2,'192.168.0.1','192.168.0.2',100, '100%',10,0,0,0,'',"+
+            " '2020-11-11 08:00:39.000','2020-11-11 08:00:39.000',10,10)";
         LOGGER.debug(sql2);
         jdbcTemplate.execute(sql2);
         return modelAndView;
@@ -133,17 +148,22 @@ public class SampleController {
     @RequestMapping("data")
     @ResponseBody
     public Pagination getImportData(final TaskSearchDto searchDto) {
-        String sql = "select * from task_info where file_id = 'abc.pdf' limit 0, 25";
+        String sql = "select * from task_info where task_name = 'abc.pdf' limit 0, 25";
 
         List<Map<String,Object>> result = this.jdbcTemplate.query(sql, new RowMapper<Map<String,Object>>() {
             @Override
             public Map mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Map row = new HashMap();
                 row.put("id", rs.getInt("id"));
+                row.put("task_name", rs.getString("task_name"));
                 row.put("create_time", rs.getString("create_time"));
-                row.put("file_id", rs.getString("file_id"));
+                row.put("finish_time", rs.getString("finish_time"));
+                row.put("data_size", rs.getString("data_size"));
+                row.put("complete_per", rs.getString("complete_per"));
                 row.put("status", rs.getString("status"));
-                row.put("progress", rs.getString("progress"));
+                row.put("task_type", rs.getString("task_type"));
+                row.put("origin_ip", rs.getString("origin_ip"));
+                row.put("target_ip", rs.getString("target_ip"));
                 return row;
             }
 
