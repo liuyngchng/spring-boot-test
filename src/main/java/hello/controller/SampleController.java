@@ -28,14 +28,6 @@ public class SampleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
 
-    private static final List<String> keyList = new ArrayList<>(5);
-    static {
-        keyList.add("city");
-        keyList.add("item");
-        keyList.add("id1");
-        keyList.add("id2");
-    }
-
     @Value("${spring.datasource.url}")
     private String dataSource;
 

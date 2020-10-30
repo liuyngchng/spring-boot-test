@@ -9,6 +9,6 @@
 </head>
 <body>
     <div align="right"><a href="/logout">退出</a><br/></div>
-    你好, ${name!}, 现在时间 ${date!}  <a href="/v1">test</a>
+    你好, ${name!}, 现在时间 ${date!}  <a href="/">test</a>
 </body>
 </html>
