@@ -60,6 +60,8 @@ public class SampleController {
     public ModelAndView v1() {
         LOGGER.info("hello, myview");
         LOGGER.info("spring.datasource.url is {}", dataSource);
+        this.jdbcTemplate.execute("PRAGMA journal_mode=WAL");
+        LOGGER.info("open wal mode.");
         ModelAndView modelAndView =  new ModelAndView("v1");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
@@ -153,6 +155,7 @@ public class SampleController {
     @RequestMapping("data")
     @ResponseBody
     public Pagination getImportData(final TaskSearchDto searchDto) {
+
         String sql = "select * from task_info where task_name = 'abc.pdf' limit 0, 25";
 
         List<Map<String,Object>> result = this.jdbcTemplate.query(sql, new RowMapper<Map<String,Object>>() {
