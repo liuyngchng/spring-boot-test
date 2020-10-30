@@ -5,6 +5,7 @@ import hello.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,9 @@ public class SampleController {
         keyList.add("id2");
     }
 
+    @Value("${spring.datasource.url}")
+    private String dataSource;
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -55,6 +59,7 @@ public class SampleController {
     @RequestMapping("v1")
     public ModelAndView v1() {
         LOGGER.info("hello, myview");
+        LOGGER.info("spring.datasource.url is {}", dataSource);
         ModelAndView modelAndView =  new ModelAndView("v1");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
