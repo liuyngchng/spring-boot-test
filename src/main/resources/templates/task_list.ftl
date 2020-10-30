@@ -165,7 +165,7 @@
                         "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">取消</button>"+
                         "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">重试</button><br/>"+
                         "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">删除</button>"+
-                        "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">任务详情</button>"+
+                        "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"get_detail()\">任务详情</button>"+
                         "<button type=\"button\" class=\"btn btn-danger backstage-button\" onclick=\"stop()\">文件信息</button>"
 
                         ;
@@ -278,5 +278,18 @@
         } else {
             return value;
         }
+    }
+
+    function get_detail() {
+        $.ajax({
+            method: "post",
+            url: "/taskdetail",
+            data: {},
+            success: function(data) {
+                $("#page-wrapper").empty();
+                $("#page-wrapper").html(data);
+                drawCurve();
+            }
+        })
     }
 </script>

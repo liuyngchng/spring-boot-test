@@ -42,27 +42,14 @@ public class SampleController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping("")
-    public ModelAndView index(HttpServletRequest request) {
-        if (request.getSession().getAttribute("name") == null) {
-            ModelAndView modelAndView =  new ModelAndView("login_index");
-            return modelAndView;
-        }
-        final String user = String.valueOf(request.getSession().getAttribute("name"));
-        LOGGER.info("login user {}", user);
-        ModelAndView modelAndView =  new ModelAndView("index");
-        modelAndView.addObject("name", "user");
-        modelAndView.addObject("dae", new Date());
-        return modelAndView;
-    }
 
-    @RequestMapping("v1")
-    public ModelAndView v1() {
-        LOGGER.info("hello, myview");
+    @RequestMapping("")
+    public ModelAndView index() {
+        LOGGER.info("hello, index");
         LOGGER.info("spring.datasource.url is {}", dataSource);
         this.jdbcTemplate.execute("PRAGMA journal_mode=WAL");
         LOGGER.info("open wal mode.");
-        ModelAndView modelAndView =  new ModelAndView("v1");
+        ModelAndView modelAndView =  new ModelAndView("menu");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
         String sql = " create table if not exists file_info(" +
@@ -81,7 +68,7 @@ public class SampleController {
             "del integer default 0" +
             ");";
         LOGGER.debug(sql);
-        jdbcTemplate.execute(sql);
+        this.jdbcTemplate.execute(sql);
         String sql1 = "create table if not exists task_info(" +
             "id integer primary key," +
             "task_name varchar(128)," +
@@ -114,39 +101,48 @@ public class SampleController {
             "del integer default 0" +
             ");";
         LOGGER.debug(sql1);
-        jdbcTemplate.execute(sql1);
+        this.jdbcTemplate.execute(sql1);
         String sql2 = "insert into task_info (task_name, status, task_type,origin_ip,"+
             "target_ip,data_size,complete_per,used_time,interrupt_time,retry_count,"+
             "retry_time,retry_ip,finish_time,push_time,slice_sended,slice_total)"+
             " values ('abc.pdf', 3, 2,'192.168.0.1','192.168.0.2',100, '100%',10,0,0,0,'',"+
             " '2020-11-11 08:00:39.000','2020-11-11 08:00:39.000',10,10)";
         LOGGER.debug(sql2);
-        jdbcTemplate.execute(sql2);
+        this.jdbcTemplate.execute(sql2);
         return modelAndView;
     }
 
-    @RequestMapping("taskinfo")
-    public ModelAndView taskInfo() {
+    @RequestMapping("task_list")
+    public ModelAndView taskList() {
         LOGGER.info("hello, taskInfo");
-        ModelAndView modelAndView =  new ModelAndView("taskInfo");
+        ModelAndView modelAndView =  new ModelAndView("task_list");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
         return modelAndView;
     }
 
-    @RequestMapping("taskdetail")
+    @RequestMapping("task_detail")
     public ModelAndView taskDetail() {
         LOGGER.info("hello, taskDetail");
-        ModelAndView modelAndView =  new ModelAndView("taskDetail");
+        ModelAndView modelAndView =  new ModelAndView("task_detail");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
         return modelAndView;
     }
 
-    @RequestMapping("curvedata")
+    @RequestMapping("file_list")
+    public ModelAndView fileList() {
+        LOGGER.info("hello, fileList");
+        ModelAndView modelAndView =  new ModelAndView("file_list");
+        modelAndView.addObject("name", "whoAmI");
+        modelAndView.addObject("dae", new Date());
+        return modelAndView;
+    }
+
+    @RequestMapping("curve_data")
     public ModelAndView curveData() {
         LOGGER.info("hello, curveData");
-        ModelAndView modelAndView =  new ModelAndView("curvedata");
+        ModelAndView modelAndView =  new ModelAndView("curve_data");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
         return modelAndView;
@@ -155,9 +151,7 @@ public class SampleController {
     @RequestMapping("data")
     @ResponseBody
     public Pagination getImportData(final TaskSearchDto searchDto) {
-
         String sql = "select * from task_info where task_name = 'abc.pdf' limit 0, 25";
-
         List<Map<String,Object>> result = this.jdbcTemplate.query(sql, new RowMapper<Map<String,Object>>() {
             @Override
             public Map mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -174,7 +168,6 @@ public class SampleController {
                 row.put("target_ip", rs.getString("target_ip"));
                 return row;
             }
-
         });
         Pagination pagination = new Pagination(searchDto.getPageNo(),25,23L);
         pagination.setRows(result);
@@ -194,10 +187,6 @@ public class SampleController {
     @RequestMapping("test")
     public ModelAndView test() {
         LOGGER.info("hello, test");
-//        String sql = "select * from test";
-//        List<Map<String, Object>> list =  this.jdbcTemplate.queryForList(sql);
-//        int result = this.jdbcTemplate.update("update table1 set b=66 where a=1;");
-//        LOGGER.info("update result is {}", result);
         ModelAndView modelAndView =  new ModelAndView("test");
         Data data = new Data();
         data.setKey1("value1");
@@ -231,16 +220,6 @@ public class SampleController {
         }
         final String name = request.getParameter("name");
         final String password = request.getParameter("password");
-//        if (User.list.get(name) == null || User.list.get(name) != null && !User.list.get(name).equals(password)) {
-//            ModelAndView modelAndView = new ModelAndView("login_index");
-//            if (request.getMethod().toLowerCase().equals("post")) {
-//                modelAndView.addObject("data", "用户名或密码错误，请重新登录");
-//                LOGGER.info("user name or password error.");
-//            } else {
-//                LOGGER.info("login, http get");
-//            }
-//            return modelAndView;
-//        }
         LOGGER.info("user login {}", name);
         request.getSession().setAttribute("user.name", name);
         ModelAndView modelAndView =  new ModelAndView("index");
@@ -261,7 +240,6 @@ public class SampleController {
 
     @RequestMapping("task")
     public ModelAndView doTask(HttpServletRequest request) {
-
         LOGGER.info("hello, task");
         final String name = String.valueOf(request.getSession().getAttribute("user.name"));
         ModelAndView modelAndView;
@@ -294,23 +272,6 @@ public class SampleController {
         return modelAndView;
     }
 
-    @RequestMapping("score")
-    public ModelAndView score(HttpServletRequest request, TaskSearchDto dto) {
-        LOGGER.info("score");
-        final String name = String.valueOf(request.getSession().getAttribute("user.name"));
-        ModelAndView modelAndView;
-        if (Strings.isNullOrEmpty(name) || name.equals("null") || request.getMethod().toLowerCase().equals("get")) {
-            LOGGER.info("user name is null");
-            return new ModelAndView("login_index");
-        }
-        modelAndView =  new ModelAndView("task");
-        String sql = buildSql(dto);
-        LOGGER.info("sql is {}", sql);
-        List<Map<String, Object>> list = getData(sql);
-        modelAndView.addObject("scoreList", list);
-        return modelAndView;
-    }
-
     private List<Map<String, Object>> getData(String sql) {
         List<Map<String, Object>> list =  this.jdbcTemplate.queryForList(sql);
 
@@ -323,34 +284,9 @@ public class SampleController {
             sb.append(item.get("id2") + "");
             item.put("data_key", sb.toString());
         });
-        getName(list);
         LOGGER.info("list is {}", list);
         return list;
     }
-
-    private void getName(List<Map<String, Object>> list) {
-        list.forEach(item -> {
-            if (null != item.get("city") && null != City.list.get(item.get("city"))) {
-                item.put("city", City.list.get(item.get("city")));
-            }
-            if (null != item.get("item") && null != Item.list.get(item.get("item"))) {
-                item.put("item", Item.list.get(item.get("item")));
-            }
-            if (null != item.get("id1") && null != Id1.list.get(item.get("id1"))) {
-                item.put("id1", Id1.list.get(item.get("id1")));
-            }
-            if (null != item.get("id2") && null != Id2.list.get(item.get("id2"))) {
-                item.put("id2", Id2.list.get(item.get("id2")));
-            }
-        });
-    }
-
-    private String buildSql(TaskSearchDto dto) {
-        StringBuilder sb = new StringBuilder("select * from test.test where true ");
-
-        return sb.toString();
-    }
-
 
     private String buildUpdateSql(String[] keys, String score) {
         if (keys.length != 4) {
