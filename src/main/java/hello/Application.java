@@ -8,6 +8,8 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
+import java.util.function.Function;
+
 
 @SpringBootApplication
 //@ServletComponentScan
@@ -29,5 +31,10 @@ public class Application extends SpringBootServletInitializer {
         return container -> {
             container.setSessionTimeout(1800);/*单位为s*/
         };
+    }
+
+    @Bean
+    Function<String, String> uppercase() {
+        return s -> s.toUpperCase();
     }
 }
