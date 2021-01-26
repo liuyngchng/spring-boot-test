@@ -63,9 +63,9 @@
                             </a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a class="J_menuItem" href="javascript:getPage('/taskinfo')">任务查询</a>
-                                    <a class="J_menuItem" href="javascript:getPage('/taskdetail')">任务详请</a>
-                                    <a class="J_menuItem" href="javascript:getPage('/private/face/living')">测试3</a>
+                                    <a class="J_menuItem" href="javascript:getPage('/task_list')">任务查询</a>
+                                    <a class="J_menuItem" href="javascript:getPage('/task_detail')">任务详请</a>
+                                    <a class="J_menuItem" href="javascript:getPage('/file_list')">文件信息</a>
                                     <a class="J_menuItem" href="javascript:getPage('/private/auth/item')">测试4</a>
                                     <a class="J_menuItem" href="javascript:getPage('/private/user/info')">测试5</a>
                                 </li>
@@ -97,7 +97,7 @@
                             </a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a class="J_menuItem" href="javascript:getPage('/curvedata')">监控数据</a>
+                                    <a class="J_menuItem" href="javascript:getPage('/curve_data')">监控数据</a>
                                 </li>
                             </ul>
                         <li class="line dk"></li>
