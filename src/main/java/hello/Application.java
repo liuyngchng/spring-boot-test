@@ -7,11 +7,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 
 @SpringBootApplication
 //@ServletComponentScan
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 //@ComponentScan(value = "hello.model")
 public class Application extends SpringBootServletInitializer {
 
@@ -29,5 +30,10 @@ public class Application extends SpringBootServletInitializer {
         return container -> {
             container.setSessionTimeout(1800);/*单位为s*/
         };
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
