@@ -18,7 +18,7 @@ public class TestController {
     @Autowired
     private RestTemplate template;
 
-    @RequestMapping("/face/living")
+    @RequestMapping("/auth/item")
     @ResponseBody
     public String TestMe() {
         Result result = this.template.getForObject("http://www.baidu.com/{1}/{2}", Result.class,1,5);

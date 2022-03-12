@@ -110,6 +110,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+<!--                打包时会将scope为system的一并打入包内-->
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -163,7 +167,52 @@
                     <!--</execution>-->
                 <!--</executions>-->
             <!--</plugin>-->
-
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-antrun-plugin</artifactId>-->
+<!--                <version>1.8</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>main-class-placement</id>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <configuration>-->
+<!--                            <target>-->
+<!--                                <move todir="${project.build.directory}/${project.artifactId}/">-->
+<!--                                    <fileset dir="${project.build.directory}/classes/">-->
+<!--                                        <include name="Bootstrap.class" />-->
+<!--                                    </fileset>-->
+<!--                                </move>-->
+<!--                            </target>-->
+<!--                        </configuration>-->
+<!--                        <goals>-->
+<!--                            <goal>run</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <version>3.1.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>jetty-classpath</id>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>unpack-dependencies</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <includeGroupIds>org.eclipse.jetty, org.eclipse.jetty.orbit</includeGroupIds>-->
+<!--                            <includeScope>provided</includeScope>-->
+<!--                            &lt;!&ndash; remove some files in order to decrease size &ndash;&gt;-->
+<!--                            <excludes>*, about_files/*, META-INF/*</excludes>-->
+<!--                            <outputDirectory>-->
+<!--                                ${project.build.directory}/${project.artifactId}-->
+<!--                            </outputDirectory>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>
