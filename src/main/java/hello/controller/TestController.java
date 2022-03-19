@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+
 @Controller
 @RequestMapping("/private")
 public class TestController {
@@ -25,6 +26,10 @@ public class TestController {
     @Autowired
     private WebDriver driver;
 
+    /**
+     * Selenium常用API的使用
+     * https://blog.csdn.net/qq_22003641/article/details/79137327
+     */
     @RequestMapping("/auth/item")
     @ResponseBody
     public String TestChromeDriver() {
