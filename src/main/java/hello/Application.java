@@ -1,5 +1,8 @@
 package hello;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -40,5 +43,16 @@ public class Application extends SpringBootServletInitializer {
 
     Function<String, String> uppercase() {
         return s -> s.toUpperCase();
+    }
+
+    @Bean
+    public WebDriver getChromeDriver() {
+        System.setProperty("webdriver.chrome.driver","/Applications/chromedriver/chromedriver");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--user-data-dir=/Users/richard/Downloads/chromeDriverData");
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+//        options.addArguments("--webdriver.chrome.driver","/Applications/chromedriver/chromedriver");
+        return new ChromeDriver(options);
     }
 }
