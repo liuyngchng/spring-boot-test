@@ -45,7 +45,7 @@ public class Application extends SpringBootServletInitializer {
         return s -> s.toUpperCase();
     }
 
-    @Bean
+//    @Bean
     public WebDriver getChromeDriver() {
         System.setProperty("webdriver.chrome.driver","/Applications/chromedriver/chromedriver");
         ChromeOptions options = new ChromeOptions();

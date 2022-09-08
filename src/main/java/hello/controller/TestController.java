@@ -23,8 +23,6 @@ public class TestController {
     @Autowired
     private RestTemplate template;
 
-    @Autowired
-    private WebDriver driver;
 
     /**
      * Selenium常用API的使用
@@ -33,9 +31,9 @@ public class TestController {
     @RequestMapping("/auth/item")
     @ResponseBody
     public String TestChromeDriver() {
-        this.driver.get("https://www.baidu.com");
-        this.driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
-        this.driver.close();
+//        this.driver.get("https://www.baidu.com");
+//        this.driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+//        this.driver.close();
         return "";
     }
 

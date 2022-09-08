@@ -17,20 +17,22 @@ public class TaskController {
 
     @RequestMapping("/test")
     @ResponseBody
-    public String test() {
+    public long test() {
 
-        return "{\n" +
-                "  \"dataset\":\n" +
-                "    {\"data\":\n" +
-                "      [\n" +
-                "        {\"a\":\"a\", \"b\": \"b\"}\n" +
-                "      ],\n" +
-                "      \"totalCount\": \"10\"\n" +
-                "    },\n" +
-                "  \"currentPage\": \"2\",\n" +
-                "  \"pageSize\": \"10\",\n" +
-                "  \"subjectId\": \"12345\"\n" +
-                "}";
+        return System.currentTimeMillis();
+
+//        return "{\n" +
+//                "  \"dataset\":\n" +
+//                "    {\"data\":\n" +
+//                "      [\n" +
+//                "        {\"a\":\"a\", \"b\": \"b\"}\n" +
+//                "      ],\n" +
+//                "      \"totalCount\": \"10\"\n" +
+//                "    },\n" +
+//                "  \"currentPage\": \"2\",\n" +
+//                "  \"pageSize\": \"10\",\n" +
+//                "  \"subjectId\": \"12345\"\n" +
+//                "}";
     }
 
     @RequestMapping("/test/_CLASS")
