@@ -28,11 +28,13 @@ public class TaskController {
     @RequestMapping("/test")
     @ResponseBody
     public String test() {
-
+        LOGGER.info("received request");
         String cmd[] = new String[2];
-        cmd[0] = "/usr/bin/sh";
+        cmd[0] = "/usr/bin/bash";
         cmd[1] = "get_time.sh";
-        return this.execShell(cmd).getBody();
+        final String result =  this.execShell(cmd).getBody();
+        LOGGER.info("response {}", result);
+        return result;
 
 //        return System.currentTimeMillis();
 
@@ -71,7 +73,7 @@ public class TaskController {
     }
 
     public ResponseEntity<String> execShell(final String[] cmds) {
-        LOGGER.info("cmd = {}", Arrays.toString(cmds).replace(",", "").replace(" ", "' '"));
+//        LOGGER.info("cmd = {}", Arrays.toString(cmds).replace(",", "").replace(" ", "' '"));
         ResponseEntity<String> responseEntity = null;
         Process process = null;
         BufferedReader stdInput = null;
@@ -94,12 +96,12 @@ public class TaskController {
 
             }
             responseEntity = new ResponseEntity<>(stdout.toString(), HttpStatus.OK);
-            LOGGER.info("stdout of cmd:{}", stdout.toString());
+//            LOGGER.info("stdout of cmd:{}", stdout.toString());
             while ((tmp = stdError.readLine()) != null) {
                 stderr.append(tmp);
                 stderr.append("\r\n");
             }
-            LOGGER.info("stderr of cmd:\n{}", stderr.toString());
+//            LOGGER.info("stderr of cmd:\n{}", stderr.toString());
 
         } catch (IOException e) {
             LOGGER.error("error", e);
