@@ -29,27 +29,9 @@ public class TaskController {
     @ResponseBody
     public String test() {
         LOGGER.info("received request");
-        String cmd[] = new String[2];
-        cmd[0] = "/usr/bin/bash";
-        cmd[1] = "get_time.sh";
-        final String result =  this.execShell(cmd).getBody();
+        final String result =  this.execShell(new String[]{"/usr/bin/bash", "./get_time.sh"}).getBody();
         LOGGER.info("response {}", result);
         return result;
-
-//        return System.currentTimeMillis();
-
-//        return "{\n" +
-//                "  \"dataset\":\n" +
-//                "    {\"data\":\n" +
-//                "      [\n" +
-//                "        {\"a\":\"a\", \"b\": \"b\"}\n" +
-//                "      ],\n" +
-//                "      \"totalCount\": \"10\"\n" +
-//                "    },\n" +
-//                "  \"currentPage\": \"2\",\n" +
-//                "  \"pageSize\": \"10\",\n" +
-//                "  \"subjectId\": \"12345\"\n" +
-//                "}";
     }
 
     @RequestMapping("/test/_CLASS")
