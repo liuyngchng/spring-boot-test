@@ -40,7 +40,12 @@ public class TaskController {
     public String getTimestamp(String t1) {
         String t2 = this.execShell(new String[]{"/usr/bin/bash", "./timestamp.sh"}).getBody().trim();
         LOGGER.info("received request \nt1 = {}, \nt2 = {}", t1, t2);
-        return String.format("%s\n%s\n%s", t1, t2, this.execShell(new String[]{"/usr/bin/bash", "./timestamp.sh"}).getBody().trim());
+        return String.format(
+            "%s,%s,%s",
+            t1,
+            t2,
+            this.execShell(new String[]{"/usr/bin/bash", "./timestamp.sh"}).getBody().trim()
+        );
     }
 
     @RequestMapping("/test/_CLASS")
