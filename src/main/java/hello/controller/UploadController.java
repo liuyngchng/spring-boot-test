@@ -1,9 +1,7 @@
 package hello.controller;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,16 +13,15 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Description
  * @Author sgl
  * @Date 2018-05-15 14:04
  */
-@Controller
+//@Controller
 public class UploadController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static List<String> fileList = new ArrayList<>();
     static {

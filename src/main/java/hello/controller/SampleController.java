@@ -2,8 +2,8 @@ package hello.controller;
 
 import com.google.common.base.Strings;
 import hello.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,8 +26,7 @@ import java.util.*;
 @RequestMapping("/")
 public class SampleController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
-
+    private static final Logger LOGGER = LogManager.getLogger();
     @Value("${spring.datasource.url}")
     private String dataSource;
 
@@ -39,8 +38,10 @@ public class SampleController {
     public ModelAndView index() {
         LOGGER.info("hello, index");
         LOGGER.info("spring.datasource.url is {}", dataSource);
-        this.jdbcTemplate.execute("PRAGMA journal_mode=WAL");
+//        this.jdbcTemplate.execute("PRAGMA journal_mode=WAL");
         LOGGER.info("open wal mode.");
+        List<Map<String, Object>> result = this.jdbcTemplate.queryForList("select * from a;");
+        LOGGER.info("result, {}", result);
         ModelAndView modelAndView =  new ModelAndView("menu");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
