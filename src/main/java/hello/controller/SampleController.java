@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * config database https://www.cnblogs.com/liangblog/p/5228548.html
+ * @author rd
+ * https://blog.csdn.net/hubo_88/article/details/80431733
  */
 @Controller
 @RequestMapping("/")
@@ -33,15 +35,27 @@ public class SampleController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private ApplicationContext context;
 
     @RequestMapping("")
-    public ModelAndView index() {
+    @ResponseBody
+    public String index() {
         LOGGER.info("hello, index");
         LOGGER.info("spring.datasource.url is {}", dataSource);
-//        this.jdbcTemplate.execute("PRAGMA journal_mode=WAL");
-        LOGGER.info("open wal mode.");
+        LOGGER.info("context, {}", this.context);
         List<Map<String, Object>> result = this.jdbcTemplate.queryForList("select * from a;");
         LOGGER.info("result, {}", result);
+        return result.toString();
+    }
+
+
+    @RequestMapping("sqlite")
+    public ModelAndView index1() {
+        LOGGER.info("hello, index1");
+        LOGGER.info("spring.datasource.url is {}", dataSource);
+        this.jdbcTemplate.execute("PRAGMA journal_mode=WAL");
+        LOGGER.info("open wal mode.");
         ModelAndView modelAndView =  new ModelAndView("menu");
         modelAndView.addObject("name", "whoAmI");
         modelAndView.addObject("dae", new Date());
