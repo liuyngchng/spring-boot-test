@@ -31,7 +31,7 @@ public class DataSourceAutoConfiguration {
         ds.setJdbcUrl(this.prop.getUrl());
         ds.setUsername(this.prop.getUsername());
         ds.setPassword(this.prop.getPassword());
-        ds.setPassword("***");
+        ds.setPassword("P@$$W0rd123");
         ds.setDriverClassName(this.prop.getDriverClassName());
         return ds;
     }
